@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Покупка игры - Assassin's creed odyssey</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background:#121212; color:#fff; margin:0; padding:0;
+  }
+  header{
+    background:#1f1f1f; text-align:center; padding:20px;
+  }
+  h1 { margin:0; font-size:24px; }
+  .container {
+    max-width:900px; margin:20px auto; padding:20px;
+    background:#1f1f1f; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.5);
+  }
+  .photo-image {
+    width:100%; max-width:400px; display:block; margin:0 auto 20px; border-radius:8px;
+  }
+  h2 { text-align:center; margin-bottom:10px; }
+  p { line-height:1.5; margin-bottom:20px; }
+  .buy-button {
+    display:block; width:200px; margin:0 auto 20px; padding:15px;
+    background:#ff4b2b; color:#fff; border:none; border-radius:8px; font-size:16px; cursor:pointer;
+  }
+  .hi-button:hover { background:#ff1b00; }
+  .payment-form {
+    display:none; max-width:400px; margin:20px auto; background:#2a2a2a; padding:20px; border-radius:8px;
+  }
+  .payment-form h3 { text-align:center; margin-bottom:20px; }
+  label { display:block; margin-bottom:10px; font-weight:bold; }
+  input {
+    width:100%; padding:10px; margin-bottom:15px; border:1px solid #555; border-radius:4px; background:#1f1f1f; color:#fff;
+  }
+  button {
+    width:100%; padding:20px; background:#4CAF50; border:none; border-radius:8px; font-size:16px;
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Покупка игры: Assassin's creed odyssey</h1>
+</header>
+
+<div class="container">
+  <img src="img/28.jpeg" class="photo-image" />
+  <h2>Описание продукта</h2>
+  <p>
+    Получите доступ к игре Assassin's creed odyssey через Steam. Ваша учетная запись будет активирована для игры, и вы сможете наслаждаться этой захватывающей историей. Обратите внимание, что аккаунт работает в офлайн-режиме и предназначен для личного использования.
+  </p>
+  <button class="hi-button" id="buyBtn">Купить сейчас</button>
+
+  <!-- Форма для ввода карты -->
+  <form class="payment-form" id="paymentForm" novalidate>
+    <h3 style="text-align:center;">Введите данные карты</h3>
+    <label for="cardHolder">Имя владельца карты</label>
+    <input type="text" id="cardHolder" placeholder="Имя Фамилия" required />
+
+    <label for="cardNumber">Номер карты</label>
+    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" required />
+
+    <label for="cardExpiry">Срок действия (ММ/ГГ)</label>
+    <input type="text" id="cardExpiry" placeholder="ММ/ГГ" maxlength="5" pattern="\d{2}/\d{2}" required />
+
+    <label for="cardCVC">CVC</label>
+    <input type="text" id="cardCVC" placeholder="CVC" maxlength="3" pattern="\d{3}" required />
+
+    <button type="submit" id="payBtn">Оплатить</button>
+  </form>
+</div>
+<script>
+  const buyButton = document.getElementById('buyBtn');
+  const paymentForm = document.getElementById('paymentForm');
+
+  buyButton.addEventListener('click', () => {
+    // Показываем форму оплаты при клике
+    paymentForm.style.display = 'block';
+  });
+
+  // Обработка формы при отправке
+  paymentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const holder = document.getElementById('cardHolder').value.trim();
+    const number = document.getElementById('cardNumber').value.trim();
+    const expiry = document.getElementById('cardExpiry').value.trim();
+    const cvc = document.getElementById('cardCVC').value.trim();
+
+    // Проверка заполненности
+    if (!holder || !number || !expiry || !cvc) {
+      alert('Пожалуйста, заполните все поля.');
+      return;
+    }
+
+    // Проверка формата
+    const numberPattern = /^\d{4} \d{4} \d{4} \d{4}$/;
+    const expiryPattern = /^\d{2}\/\d{2}$/;
+    const cvcPattern = /^\d{3}$/;
+
+    if (!numberPattern.test(number)) {
+      alert('Пожалуйста, введите правильный номер карты в формате XXXX XXXX XXXX XXXX.');
+      return;
+    }
+
+    if (!expiryPattern.test(expiry)) {
+      alert('Пожалуйста, введите срок действия в формате ММ/ГГ.');
+      return;
+    }
+
+    if (!cvcPattern.test(cvc)) {
+      alert('Пожалуйста, введите правильный CVC (3 цифры).');
+      return;
+    }
+
+    alert('Платеж успешно завершен! Спасибо за покупку.');
+    // Очистка формы
+    paymentForm.reset();
+    // скрываем форму
+    paymentForm.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
